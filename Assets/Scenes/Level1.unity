@@ -5854,7 +5854,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   torqueAmount: 2
-  surfaceEffector2D: {fileID: 1249323205}
+  boostSpeed: 30
+  normalSpeed: 20
 --- !u!1 &979387158
 GameObject:
   m_ObjectHideFlags: 0
@@ -6516,7 +6517,7 @@ SurfaceEffector2D:
   m_Speed: 20
   m_SpeedVariation: 3.9
   m_ForceScale: 0.05
-  m_UseContactForce: 0
+  m_UseContactForce: 1
   m_UseFriction: 1
   m_UseBounce: 1
 --- !u!114 &1249323206
