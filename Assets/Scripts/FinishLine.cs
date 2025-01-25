@@ -15,8 +15,13 @@ public class FinishLine : MonoBehaviour
     {
         if (other.gameObject.tag == "Barry")
         {
-            finishEffect.Play();
+            if (finishEffect && !finishEffect.isPlaying)
+            {
+                finishEffect.Play();
+            }
             Invoke("LoadLevel1", finishDelay);
+            var audioSource = GetComponent<AudioSource>();
+            audioSource.Play();
             Debug.Log("Win");
 
         }

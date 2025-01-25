@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -7,6 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float boostSpeed = 30f;
     [SerializeField] float normalSpeed = 20f;
     SurfaceEffector2D surfaceEffector2D;
+    public bool canMove = true;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -19,9 +21,23 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        RotatePlayer();
-        RespondToBoost();
-        
+        if (canMove){
+            RotatePlayer();
+            RespondToBoost();
+        }   
+    }
+
+    public void DisableMovement(){
+        StartCoroutine(DisableControllers());
+    }
+
+    private IEnumerator DisableControllers(){
+        canMove = false;
+        surfaceEffector2D.speed = 0;
+        var rigidbody = GetComponent<Rigidbody2D>();
+        yield return new WaitForSeconds(0.5f);
+        rigidbody.simulated = false;
+        Debug.Log("DisableControllers");
     }
 
     void RespondToBoost()
@@ -40,11 +56,11 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            rb2D.AddTorque(torqueAmount);
+            rb2D.AddTorque(torqueAmount * Time.deltaTime);
         }
         else if (Input.GetKey(KeyCode.RightArrow))
         {
-            rb2D.AddTorque(-torqueAmount);
+            rb2D.AddTorque(-torqueAmount * Time.deltaTime);
         }
     }
 }
